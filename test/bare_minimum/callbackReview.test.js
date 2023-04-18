@@ -4,7 +4,7 @@ var expect = require('chai').expect;
 describe('Callback review', function () {
   var callbackReview = require('../../exercises/bare_minimum/callbackReview.js');
 
-  describe.only('pluckFirstLineFromFile', function () {
+  describe('pluckFirstLineFromFile', function () {
     var pluckFirstLineFromFile = callbackReview.pluckFirstLineFromFile;
 
     it('should accept a callback as its last argument', function (done) {
@@ -42,7 +42,7 @@ describe('Callback review', function () {
     });
   });
 
-  describe('getStatusCode', function () {
+  describe.only('getStatusCode', function () {
     var getStatusCode = callbackReview.getStatusCode;
 
     // Nock is a super cool library that makes it easy to test

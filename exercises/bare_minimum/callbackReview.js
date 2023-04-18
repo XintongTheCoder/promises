@@ -8,26 +8,6 @@ const readline = require('readline');
 
 // This function should retrieve the first line of the file at `filePath`
 var pluckFirstLineFromFile = function (filePath, callback) {
-  // fs.exists(filePath, (exists) => {
-  //   let err = new Error('File does not exist');
-  //   err.code = 'ENOENT';
-  //   if (!exists) {
-  //     callback(err);
-  //   } else {
-  //     let lineReader = readline.createInterface({
-  //       input: fs.createReadStream(filePath),
-  //     });
-  //     let lineNo = 0;
-  //     lineReader.on('line', (line) => {
-  //       lineNo++;
-  //       callback(null, line);
-  //       if (lineNo === 1) {
-  //         lineReader.close();
-  //         lineReader.removeAllListeners();
-  //       }
-  //     });
-  //   }
-  // });
   const readStream = fs.createReadStream(filePath);
 
   readStream
@@ -47,8 +27,15 @@ var pluckFirstLineFromFile = function (filePath, callback) {
 };
 
 // This function should retrieve the status code of a GET request to `url`
-var getStatusCode = function (url) {
+var getStatusCode = function (url, callback) {
   // TODO
+  request.get(url, (err, response) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, response.statusCode);
+    }
+  });
 };
 
 // Export these functions so we can test them and reuse them in later exercises
