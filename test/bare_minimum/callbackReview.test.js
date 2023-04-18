@@ -42,7 +42,7 @@ describe('Callback review', function () {
     });
   });
 
-  describe.only('getStatusCode', function () {
+  describe('getStatusCode', function () {
     var getStatusCode = callbackReview.getStatusCode;
 
     // Nock is a super cool library that makes it easy to test
