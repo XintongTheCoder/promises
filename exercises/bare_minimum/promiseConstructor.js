@@ -44,6 +44,8 @@ var getStatusCodeAsync = function (url) {
   });
 };
 
+// var getStatusCodeAsync2 = async (url) => await getStatusCodeAsync(url);
+
 // Export these functions so we can test them and reuse them in later exercises
 module.exports = {
   getStatusCodeAsync: getStatusCodeAsync,

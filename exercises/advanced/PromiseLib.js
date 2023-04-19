@@ -3,7 +3,7 @@ var Promise = require('bluebird');
 
 /**
  * Return a function that wraps `nodeStyleFn`. When the returned function is invoked,
- * it will return a promise which will be resolved or rejected, depending on 
+ * it will return a promise which will be resolved or rejected, depending on
  * the execution of the now-wrapped `nodeStyleFn`
  *
  * In other words:
@@ -14,10 +14,18 @@ var Promise = require('bluebird');
  * expect a callback function as one of its arguments
  */
 
-var promisify = function(nodeStyleFn) {
-  // TODO
+const promisify = function (nodeStyleFn) {
+  return (...args) =>
+    new Promise((resolve, reject) => {
+      nodeStyleFn(...args, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
 };
-
 
 /**
  * Given an array which contains promises, return a promise that is
@@ -30,10 +38,23 @@ var promisify = function(nodeStyleFn) {
  * is rejected with the rejection reason.
  */
 
-var all = function(arrayOfPromises) {
-  // TODO
-};
+const all = function (arrayOfPromises) {
+  let results = [];
 
+  return new Promise((resolve, reject) => {
+    arrayOfPromises.forEach((promise, index) =>
+      promise
+        .then((res) => {
+          // then() cannot ensure the order
+          results[index] = res;
+          if (results.length === arrayOfPromises.length) {
+            resolve(results);
+          }
+        })
+        .catch(reject)
+    );
+  });
+};
 
 /**
  * Given an array of promises, return a promise that is resolved or rejected,
@@ -41,13 +62,17 @@ var all = function(arrayOfPromises) {
  * the first to be resolved/rejected promise in the passed-in array
  */
 
-var race = function(arrayOfPromises) {
-  // TODO
+var race = function (arrayOfPromises) {
+  return new Promise((resolve, reject) => {
+    arrayOfPromises.forEach((promise) => {
+      promise.then(resolve).catch(reject);
+    });
+  });
 };
 
 // Export these functions so we can unit test them
 module.exports = {
   all: all,
   race: race,
-  promisify: promisify
+  promisify: promisify,
 };
