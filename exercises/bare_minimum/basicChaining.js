@@ -32,24 +32,11 @@ const fetchProfileAndWriteToFile = function (readFilePath, writeFilePath) {
         });
       });
   })
-    .then((username) => {
-      return getGitHubProfileAsync(username);
-    })
-    .then(
-      (profile) => {
-        return new Promise((resolve, reject) => {
-          fs.writeFile(writeFilePath, JSON.stringify(profile), (err) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(profile);
-            }
-          });
-        });
-      }
-      // Promise.promisify(fs.writeFile(writeFilePath, JSON.stringify(profile)))
+    .then(getGitHubProfileAsync)
+    .then((profile) =>
+      Promise.promisify(fs.writeFile)(writeFilePath, JSON.stringify(profile))
     )
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 // Export these functions so we can test them

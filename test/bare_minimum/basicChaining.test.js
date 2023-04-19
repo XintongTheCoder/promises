@@ -3,7 +3,7 @@ var nock = require('nock');
 var expect = require('chai').expect;
 var Promise = require('bluebird');
 
-describe('Basic chaining', function () {
+describe.only('Basic chaining', function () {
   var chaining = require('../../exercises/bare_minimum/basicChaining.js');
 
   describe('fetchProfileAndWriteToFile', function () {
@@ -44,7 +44,7 @@ describe('Basic chaining', function () {
       ).to.be.an.instanceOf(Promise);
     });
 
-    it.only('should eventually write a GitHub profile to a file', function (done) {
+    it('should eventually write a GitHub profile to a file', function (done) {
       fetchProfileAndWriteToFile(fileWithGithubHandle, fileToWriteTo)
         .then(function () {
           var profile = JSON.parse(fs.readFileSync(fileToWriteTo, 'utf8'));

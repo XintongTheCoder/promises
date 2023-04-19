@@ -41,27 +41,26 @@ var generateRandomToken = function (callback) {
   });
 };
 
-var generateRandomTokenAsync = Promise.promisify(generateRandomToken); // TODO
+var generateRandomTokenAsync = Promise.promisify(generateRandomToken);
 
 // (3) Asyncronous file manipulation
 var readFileAndMakeItFunny = function (filePath, callback) {
   fs.readFile(filePath, 'utf8', function (err, file) {
     if (err) {
       return callback(err);
-    } else {
-      var funnyFile = file
-        .split('\n')
-        .map(function (line) {
-          return line + ' lol';
-        })
-        .join('\n');
-
-      callback(null, funnyFile);
     }
+    var funnyFile = file
+      .split('\n')
+      .map(function (line) {
+        return line + ' lol';
+      })
+      .join('\n');
+
+    callback(null, funnyFile);
   });
 };
 
-var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny); // TODO
+var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny);
 
 // Export these functions so we can test them and reuse them in later exercises
 module.exports = {

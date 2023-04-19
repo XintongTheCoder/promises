@@ -87,7 +87,7 @@ describe('Promisification', function () {
       ).to.be.an.instanceOf(Promise);
     });
 
-    it.only('should make a funny file available in the `then` block', function (done) {
+    it('should make a funny file available in the `then` block', function (done) {
       readFileAndMakeItFunnyAsync(__dirname + '/../files/file_to_read.txt')
         .then(function (funnyFile) {
           funnyFile.split('\n').forEach(function (line) {
