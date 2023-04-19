@@ -8,8 +8,8 @@
  * HINT: We exported some similar promise-returning functions in previous exercises
  */
 
-var fs = require('fs');
-var Promise = require('bluebird');
+const fs = require('fs');
+const Promise = require('bluebird');
 const readline = require('readline');
 let getGitHubProfileAsync =
   require('./promisification.js').getGitHubProfileAsync;

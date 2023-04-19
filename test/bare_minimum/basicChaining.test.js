@@ -3,7 +3,7 @@ var nock = require('nock');
 var expect = require('chai').expect;
 var Promise = require('bluebird');
 
-describe.only('Basic chaining', function () {
+describe('Basic chaining', function () {
   var chaining = require('../../exercises/bare_minimum/basicChaining.js');
 
   describe('fetchProfileAndWriteToFile', function () {
